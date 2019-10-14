@@ -25,6 +25,11 @@ class PostsController < ApplicationController
   end
 
 
+  def index
+    @posts = Post.all  #記事一覧用
+    @new_posts = Post.all  #最新記事用
+    @author = Author.first  
+  end
 
   private
 
