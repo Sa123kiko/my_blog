@@ -21,15 +21,23 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @post.update(post_params)
-    redirect_to @post #showページにリダイレクト
+    redirect_to @post #updateしたidのshowページにリダイレクト
   end
 
 
   def index
     @posts = Post.all  #記事一覧用
-    @new_posts = Post.all  #最新記事用
+    # @new_posts = Post.all  #最新記事用
+    @new_posts = Post.order(created_at: :desc).limit(5) #作成日若い順に並べる
     @author = Author.first  
   end
+
+  def destroy
+    @post = Post.find(params[:id]) 
+    @post.destroy
+    redirect_to posts_path  #posts_pathは/posts､posts#index
+  end
+
 
   private
 
